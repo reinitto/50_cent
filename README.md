@@ -1,3 +1,3 @@
 # 50_cent
-*run npm start to start the server
-*go to localhost:3000
+1. run npm start to start the server
+2. go to localhost:3000
