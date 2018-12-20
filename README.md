@@ -1,6 +1,6 @@
 # 50_cent
 
-Given your location and a destination, 50_cent will calculate an aproximate Uber price for the route and substract 50 cents from it. 
+Given your location and a destination, 50_cent will calculate an aproximate Uber price for the route  and substract 50 cents from it. 
 
 ### Prerequisites
 
