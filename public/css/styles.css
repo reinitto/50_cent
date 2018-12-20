@@ -4,7 +4,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Century Schoolbook", Georgia, Times, serif;
-
   font-weight: normal;
   flex-direction: column;
   justify-content: center;
@@ -52,6 +51,13 @@ label {
   line-height: 90%;
   margin: 0.2em 0 0.4em 0;
   letter-spacing: -2px;
+  z-index: 1;
+}
+
+#surge {
+  display: flex;
+  background-color: rgb(255, 40, 40);
+  visibility: hidden;
   z-index: 1;
 }
 
