@@ -4,7 +4,7 @@ Given your location and a destination, 50_cent will calculate an aproximate Uber
 
 ### Prerequisites
 
-[Node.js](https://nodejs.org)
+[Node.js](https://nodejs.org)  
 If you're unfamiliar with node here's a quick guide on how to install it [Node.js installation](https://blog.teamtreehouse.com/install-node-js-npm-windows)
 
 ## Installation
