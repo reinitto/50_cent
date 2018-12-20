@@ -23,7 +23,7 @@ const getSurgeRatio = (
   hour = new Date().getHours(),
   day = new Date().getDay()
 ) => {
-  if (day == 4 || 6) {
+  if ([4, 5, 6].includes(day)) {
     if (hour > 17 && hour < 25) {
       return 1 + (hour - 17) * 0.5;
     }
@@ -195,7 +195,7 @@ function initMap(a, b) {
         position: location,
         map: map,
         title: "You're here",
-        animation: google.maps.Animation.BOUNCE
+        animation: google.maps.Animation.DROP
       });
       //center on current/initial location
       map.setCenter(location);
