@@ -5,7 +5,7 @@ and substract 50 cents from it.
 
 ### Prerequisites
 
-[Node.js](https://nodejs.org)  
+[Node.js](https://nodejs.org) with NPM  
 If you're unfamiliar with node here's a quick guide on how to install it [Node.js installation](https://blog.teamtreehouse.com/install-node-js-npm-windows)
 
 ## Installation
