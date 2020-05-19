@@ -163,6 +163,7 @@ const submitClickHandler = (e) => {
       if (location) initMap(location, toInput.value);
     });
   } else {
+    initMap(fromInput.value, toInput.value);
     calculateDistance(fromInput.value, toInput.value);
     // calc and display route from A to B
     calculateAndDisplayRoute(
@@ -171,7 +172,6 @@ const submitClickHandler = (e) => {
       fromInput.value,
       toInput.value
     );
-    // initMap(fromInput.value, toInput.value);
   }
 };
 submit.addEventListener("click", submitClickHandler);
@@ -227,18 +227,18 @@ function initMap(a, b) {
 
   // Calculate distance and Route
   // only when destination is entered
-  // if (toLoc) {
-  //   //get Distance from A to b
-  //   calculateDistance(fromLoc, toLoc);
+  if (toLoc) {
+    //get Distance from A to b
+    calculateDistance(fromLoc, toLoc);
 
-  //   // calc and display route from A to B
-  //   calculateAndDisplayRoute(
-  //     directionsService,
-  //     directionsDisplay,
-  //     fromLoc,
-  //     toLoc
-  //   );
-  // }
+    // calc and display route from A to B
+    calculateAndDisplayRoute(
+      directionsService,
+      directionsDisplay,
+      fromLoc,
+      toLoc
+    );
+  }
 
   //FROM, TO input event listeners
   google.maps.event.addListener(autocompleteFrom, "place_changed", function () {
