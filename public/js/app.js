@@ -49,9 +49,9 @@ function calculateAndDisplayRoute(
       destination: toLoc,
       avoidTolls: true,
       avoidHighways: false,
-      travelMode: google.maps.TravelMode.DRIVING
+      travelMode: google.maps.TravelMode.DRIVING,
     },
-    function(response, status) {
+    function (response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
       } else {
@@ -72,7 +72,7 @@ const calculateDistance = (from, to) => {
     {
       origins: [from],
       destinations: [to],
-      travelMode: "DRIVING"
+      travelMode: "DRIVING",
     },
     calculateDistanceCallback
   );
@@ -114,11 +114,11 @@ const isSurge = () => {
 
 //Get location Promise
 const getLocation = new Promise((resolve, reject) => {
-  navigator.geolocation.getCurrentPosition(function(position) {
+  navigator.geolocation.getCurrentPosition(function (position) {
     if (position) {
       resolve({
         lat: Number(position.coords.latitude.toFixed(5)),
-        lng: Number(position.coords.longitude.toFixed(5))
+        lng: Number(position.coords.longitude.toFixed(5)),
       });
     } else {
       reject({});
@@ -127,8 +127,8 @@ const getLocation = new Promise((resolve, reject) => {
 });
 
 //Show Info (Distance and Time) fields
-const showInfo = function() {
-  [...info].forEach(tag => {
+const showInfo = function () {
+  [...info].forEach((tag) => {
     tag.style.visibility = "visible";
   });
 };
@@ -146,7 +146,7 @@ const toggleFromClickHandler = () => {
     from_container.style.visibility = "hidden";
     toggle_from.textContent = "Different starting point?";
 
-    getLocation.then(location => {
+    getLocation.then((location) => {
       if (!toInput.value) {
         initMap();
       } else {
@@ -156,21 +156,29 @@ const toggleFromClickHandler = () => {
   }
 };
 // onSubmit click handler
-const submitClickHandler = e => {
+const submitClickHandler = (e) => {
   e.preventDefault();
   if (!fromInput.value) {
-    getLocation.then(location => {
+    getLocation.then((location) => {
       if (location) initMap(location, toInput.value);
     });
   } else {
-    initMap(fromInput.value, toInput.value);
+    calculateDistance(fromInput.value, toInput.value);
+    // calc and display route from A to B
+    calculateAndDisplayRoute(
+      directionsService,
+      directionsDisplay,
+      fromInput.value,
+      toInput.value
+    );
+    // initMap(fromInput.value, toInput.value);
   }
 };
 submit.addEventListener("click", submitClickHandler);
 toggle_from.addEventListener("click", toggleFromClickHandler);
 //Clears values of given arguments
 const clearInputs = (...inputs) => {
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.value = "";
   });
 };
@@ -185,17 +193,17 @@ function initMap(a, b) {
     gestureHandling: "greedy",
     disableDefaultUI: true,
     scrollwheel: false,
-    styles: new Date().getHours() > 17 ? nightStyles : null
+    styles: new Date().getHours() > 17 ? nightStyles : null,
   };
   //get current location if FROM location is not provided
   if (navigator.geolocation && !a) {
-    getLocation.then(location => {
+    getLocation.then((location) => {
       //Set a marker at current location
       new google.maps.Marker({
         position: location,
         map: map,
         title: "You're here",
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
       });
       //center on current/initial location
       map.setCenter(location);
@@ -208,7 +216,7 @@ function initMap(a, b) {
   // Instantiate a directions service.
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer({
-    map: map
+    map: map,
   });
 
   // Google places API
@@ -219,24 +227,24 @@ function initMap(a, b) {
 
   // Calculate distance and Route
   // only when destination is entered
-  if (toLoc) {
-    //get Distance from A to b
-    calculateDistance(fromLoc, toLoc);
+  // if (toLoc) {
+  //   //get Distance from A to b
+  //   calculateDistance(fromLoc, toLoc);
 
-    // calc and display route from A to B
-    calculateAndDisplayRoute(
-      directionsService,
-      directionsDisplay,
-      fromLoc,
-      toLoc
-    );
-  }
+  //   // calc and display route from A to B
+  //   calculateAndDisplayRoute(
+  //     directionsService,
+  //     directionsDisplay,
+  //     fromLoc,
+  //     toLoc
+  //   );
+  // }
 
   //FROM, TO input event listeners
-  google.maps.event.addListener(autocompleteFrom, "place_changed", function() {
+  google.maps.event.addListener(autocompleteFrom, "place_changed", function () {
     autocompleteFrom.getPlace();
   });
-  google.maps.event.addListener(autocompleteTo, "place_changed", function() {
+  google.maps.event.addListener(autocompleteTo, "place_changed", function () {
     autocompleteTo.getPlace();
   });
 }
@@ -249,76 +257,76 @@ const nightStyles = [
   {
     featureType: "administrative.locality",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }]
+    stylers: [{ color: "#d59563" }],
   },
   {
     featureType: "poi",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }]
+    stylers: [{ color: "#d59563" }],
   },
   {
     featureType: "poi.park",
     elementType: "geometry",
-    stylers: [{ color: "#263c3f" }]
+    stylers: [{ color: "#263c3f" }],
   },
   {
     featureType: "poi.park",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#6b9a76" }]
+    stylers: [{ color: "#6b9a76" }],
   },
   {
     featureType: "road",
     elementType: "geometry",
-    stylers: [{ color: "#38414e" }]
+    stylers: [{ color: "#38414e" }],
   },
   {
     featureType: "road",
     elementType: "geometry.stroke",
-    stylers: [{ color: "#212a37" }]
+    stylers: [{ color: "#212a37" }],
   },
   {
     featureType: "road",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#9ca5b3" }]
+    stylers: [{ color: "#9ca5b3" }],
   },
   {
     featureType: "road.highway",
     elementType: "geometry",
-    stylers: [{ color: "#746855" }]
+    stylers: [{ color: "#746855" }],
   },
   {
     featureType: "road.highway",
     elementType: "geometry.stroke",
-    stylers: [{ color: "#1f2835" }]
+    stylers: [{ color: "#1f2835" }],
   },
   {
     featureType: "road.highway",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#f3d19c" }]
+    stylers: [{ color: "#f3d19c" }],
   },
   {
     featureType: "transit",
     elementType: "geometry",
-    stylers: [{ color: "#2f3948" }]
+    stylers: [{ color: "#2f3948" }],
   },
   {
     featureType: "transit.station",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }]
+    stylers: [{ color: "#d59563" }],
   },
   {
     featureType: "water",
     elementType: "geometry",
-    stylers: [{ color: "#17263c" }]
+    stylers: [{ color: "#17263c" }],
   },
   {
     featureType: "water",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#515c6d" }]
+    stylers: [{ color: "#515c6d" }],
   },
   {
     featureType: "water",
     elementType: "labels.text.stroke",
-    stylers: [{ color: "#17263c" }]
-  }
+    stylers: [{ color: "#17263c" }],
+  },
 ];
